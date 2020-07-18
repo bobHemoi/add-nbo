@@ -1,6 +1,4 @@
-// #include <stdio.h>
-// #include <netinet/in.h>
-// #include <stdint.h>
+#include "hexReader.h"
 
 uint32_t readFile(char* filePath){
 	uint8_t buf[5]= {0,};
