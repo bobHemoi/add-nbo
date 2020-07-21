@@ -1,16 +1,22 @@
 #include "hexReader.h"
 
 uint32_t readFile(char* filePath){
-	uint8_t buf[5]= {0,};
-
-	buf[4] = '\0';
+	
+	uint32_t buf = 0;
+	int size;
 
 	FILE* file = fopen(filePath, "r");
-	fread(buf, 1, 4, file);
 
-	uint32_t* p = reinterpret_cast<uint32_t*>(buf);
+	fseek(file, 0, SEEK_END);
+	size = ftell(file);
 
-	fclose(file);
+	if (size != 4){
+		printf("File size must be 4 bytes");
+		throw -1;
+	}
 	
-	return ntohl(*p);
+	fseek(file, 0, SEEK_SET);
+	fread(&buf, 1, sizeof(uint32_t), file);
+	fclose(file);	
+	return ntohl(buf);
 }

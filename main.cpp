@@ -15,7 +15,11 @@ int main (int argc, char* argv[]){
 	uint32_t num[2] = {0,0};
 
 	for (i=1 ; i<3 ; i++){		
-		num[i-1] = readFile(argv[i]);
+		try{
+			num[i-1] = readFile(argv[i]);
+		} catch (int e){
+			return -1;
+		}
 	}
 
 	sum = num[0] + num[1];
